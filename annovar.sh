@@ -52,7 +52,7 @@ convert2annovar.pl --format vcf4 ../$vcf.vcf --outfile $vcf.avinput --includeinf
 
 #multi anno command
 echo "Running multianno command..."$'\n'
-table_annovar.pl $vcf.avinput humandb/ --buildver hg19 --outfile $vcf --protocol refGene,cytoBand,genomicSuperDups,exac03,esp6500siv2_all,1000g2015aug_all,snp138,ljb26_all,clinvar_20170905,gwasCatalog --operation g,r,r,f,f,f,f,f,f,r --nastring 0 --otherinfo
+table_annovar.pl $vcf.avinput ../humandb/ --buildver hg19 --outfile $vcf --protocol refGene,cytoBand,genomicSuperDups,exac03,esp6500siv2_all,1000g2015aug_all,snp138,ljb26_all,clinvar_20170905,gwasCatalog --operation g,r,r,f,f,f,f,f,f,r --nastring 0 --otherinfo
 
 
 #to filter function refgenes
@@ -66,8 +66,8 @@ awk -F "\t" '(NR==1) || ($13 < 0.05) && ($21 < 0.05) && ($22 < 0.05)' $vcf.hg19_
 
 #gene list filter
 echo "Filtering genes..."$'\n'
-grep -wFf genelist.txt $vcf.hg19_popfreq.txt
+grep -wFf ../genelist.txt $vcf.hg19_popfreq.txt > $vcf.hg19_genefilter.txt
 
-echo "The final file is generated \"$vcf/$vcf.hg19_popfreq.txt\"."$'\n'
+echo "The final file is generated \"$vcf/$vcf.hg19_genefilter.txt\"."$'\n'
 
 exit
